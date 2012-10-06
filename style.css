@@ -1,0 +1,14 @@
+/*  DiscoDisco
+    https://www.github.com/begillespie/discodisco
+    by Brian Gillespie
+    GPL license, see README for more information */
+
+body{
+	background-color: black;
+	}
+.cell {
+	float: left;
+	}
+#container{
+	margin: 0 auto;
+	}
