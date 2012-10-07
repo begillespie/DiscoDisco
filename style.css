@@ -12,3 +12,20 @@ body{
 #container{
 	margin: 0 auto;
 	}
+#disco{
+	float: right;
+	}
+#controlpanel{
+	width: 150px;
+	float: left;
+	color: white;
+	}
+.controls{
+	width: 145px;
+	font-size: 75%;
+	float: left;
+}
+.control_value{
+	float: right;
+	font-size: 100%;
+}
