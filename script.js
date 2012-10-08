@@ -1,59 +1,50 @@
 //  DiscoDisco
 //  https://www.github.com/begillespie/discodisco
-//  by Brian Gillespie
+//  by Brian Gillespie, 2012
 //  GPL license, see README for more information
 
+$(document).ready(function(){
 //================================================================
 //  defaults
-var cellHeight = 25;                               // size in px
-var cellWidth = 50;
-var bpm = 140;                                     // dubstep beat
-var interval = Math.floor((60 / bpm) * 1000);      // speed in ms
-var numThreads = 10;                               // number of cells to change per iteration
+	var cellHeight = 25;                               // size in px
+	var cellWidth = 50;
+	var bpm = 140;                                     // dubstep beat
+	var numThreads = 10;                               // number of cells to change per iteration
 //================================================================
 
-  //  random color generator, returns a string in the form of 'rgb(xxx,xxx,xxx)'
-function random_color(){
-	var rgb = [];
-	for(var i=0; i<3; i++){
-		rgb[i] = Math.floor(Math.random()*256);
-	}
-	var rgbStr = "rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")";     //format the color as an rgb string
-	return rgbStr;
-	}
-	
-var numRows;
-var numCols;
-
-$(document).ready(function(){
+	//  random color generator, returns a string in the form of 'rgb(xxx,xxx,xxx)'
+	function random_color(){
+		var rgb = [];
+		for(var i=0; i<3; i++){
+			rgb[i] = Math.floor(Math.random()*256);
+		}
+		var rgbStr = "rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")";     //format the color as an rgb string
+		return rgbStr;
+		}
 	var $controlpanel = $("#controlpanel");
 	var $disco = $('#disco');
 
-	$(".trigger").click(function(){     //sliding control panel
-		if($controlpanel.hasClass('closed')){
-			$controlpanel.animate({
-				left: "0px",
-				}, 300);
-			$controlpanel.removeClass('closed');
+	var numRows;
+	var numCols;
+	var interval = Math.floor((60 / bpm) * 1000);      // speed in ms
+
+	$(".trigger").click(function(){     // animate the sliding control panel
+		$controlpanel.toggleClass('closed', 400);
+		if ($controlpanel.hasClass('closed')){
+			$('.trigger').html('&#9660; Controls');  // change the triangle character to point the right way
 		}else{
-			$controlpanel.animate({
-				left: "-205px",
-				}, 300);
-			$controlpanel.addClass('closed');
+			$('.trigger').html('&#9650; Controls');
 		}
 	});
 
-	//  initial fill the readouts on the control panel
-	$("#interval_control_value").text(bpm);
-	$("#numthread_control_value").text(numThreads);
-	$("#cellwidth_control_value").text(cellWidth);
-	$("#cellheight_control_value").text(cellHeight);
-
-	//  set up the four jQueryUI sliders to adjust parameters
-    $("#interval_control").slider({     // control the speed. readout is in beats per minute (BPM)
+	//  set up four jQueryUI sliders to adjust parameters
+    $("#interval_control").slider({       // control the speed. readout is in beats per minute (BPM)
 		min: 50,
 		max: 500,
 		value: bpm,
+		create: function(event, ui){
+			$("#interval_control_value").text(bpm);
+		},
 		slide: function(event, ui){
 			$("#interval_control_value").text(ui.value);
 			bpm = ui.value;
@@ -64,18 +55,24 @@ $(document).ready(function(){
 			change_color();
 		}
 	});
-    $("#numthread_control").slider({     // control the number of cells changed per iteration
+    $("#numthread_control").slider({      // control the number of cells changed per iteration
 		min: 1,
 		max: 50,
+		create: function(event, ui){
+			$("#numthread_control_value").text(numThreads);
+		},
 		value: numThreads,
 		slide: function(event, ui){
 			$("#numthread_control_value").text(ui.value);
 			numThreads = ui.value;
 		}
 	});
-    $("#cellwidth_control").slider({     // control the width of the cells
+    $("#cellwidth_control").slider({      // control the width of the cells
 		min: 5,
 		max: 200,
+		create: function(event, ui){
+			$("#cellwidth_control_value").text(cellWidth);
+		},
 		value: cellWidth,
 		slide: function(event, ui){
 			$("#cellwidth_control_value").text(ui.value);
@@ -90,6 +87,9 @@ $(document).ready(function(){
     $("#cellheight_control").slider({     // control the height of the cells
 		min: 5,
 		max: 100,
+		create: function(event, ui){
+			$("#cellheight_control_value").text(cellHeight);
+		},
 		value: cellHeight,
 		slide: function(event, ui){
 			$("#cellheight_control_value").text(ui.value);
