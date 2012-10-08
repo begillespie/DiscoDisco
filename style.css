@@ -5,27 +5,55 @@
 
 body{
 	background-color: black;
-	}
-.cell {
-	float: left;
-	}
-#container{
-	margin: 0 auto;
-	}
-#disco{
-	float: right;
-	}
-#controlpanel{
-	width: 150px;
-	float: left;
-	color: white;
-	}
-.controls{
-	width: 145px;
-	font-size: 75%;
+	margin: 0;
+}
+div.cell {
 	float: left;
 }
-.control_value{
+#disco{
 	float: right;
-	font-size: 100%;
+	margin: 0 auto;
+}
+div#controlpanel{
+	position: absolute;
+	top: 80px;
+	padding: 10px 30px 30px 30px;
+	left: 0;
+	width: 150px;
+	float: left;
+	color: #fff;
+	background: #333;
+	opacity: .70;
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+
+}
+div#controlpanel.closed{
+	left: -205px;
+}
+.trigger{
+	position: absolute;
+	width: 60px;
+	padding: 0 10px;
+	left: 180px;
+	top: 55px;
+	display: block;
+	color: #999;
+	background: #333;
+	opacity: .70;
+	text-decoration: none;
+	-webkit-transform: rotate(90deg);
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+}
+a.trigger:hover{
+	color: #fff;
+}
+.controls{
+	font-size: 75%;
+}
+span.control_value{
+	float: right;
+	font-weight: bold;
+	font-size: 130%;
 }
