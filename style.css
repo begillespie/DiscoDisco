@@ -7,11 +7,10 @@ body{
 	background-color: black;
 	margin: 0;
 }
-div.cell {
+div.cell{
 	float: left;
 }
 #disco{
-	float: right;
 	margin: 0 auto;
 }
 div#controlpanel{
@@ -31,7 +30,7 @@ div#controlpanel{
 div#controlpanel.closed{
 	left: -205px;
 }
-.trigger{
+a.trigger{
 	position: absolute;
 	width: 60px;
 	padding: 0 10px;
