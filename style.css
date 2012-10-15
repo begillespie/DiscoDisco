@@ -78,3 +78,7 @@ div#controlpanel a{
 	font-weight: bold;
 	color: #fff;
 }
+div#information{
+	position: absolute;
+	visibility: hidden;
+}
