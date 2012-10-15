@@ -15,7 +15,7 @@ div.cell{
 }
 div#controlpanel{
 	position: absolute;
-	top: 80px;
+	top: 55px;
 	padding: 10px 30px 30px 30px;
 	left: 0;
 	width: 150px;
@@ -39,8 +39,8 @@ a.trigger{
 	padding: 0 10px;
 	left: 170px;
 	top: 55px;
-	display: block;
 	color: #aaa;
+	display: block;
 	background: #000;
 	opacity: .60;
 	text-decoration: none;
@@ -58,11 +58,23 @@ a.trigger{
 a.trigger:hover{
 	color: #fff;
 }
-.controls{
+ul.controls{
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+ul.controls li{
 	font-size: 75%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 span.control_value{
 	float: right;
 	font-weight: bold;
 	font-size: 130%;
+}
+div#controlpanel a{
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
 }

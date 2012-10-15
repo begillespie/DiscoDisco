@@ -12,17 +12,8 @@ $(document).ready(function(){
 	var numThreads = 10;                               // number of cells to change per iteration
 //================================================================
 
-	//  random color generator, returns a string in the form of 'rgb(xxx,xxx,xxx)'
-	function random_color(){
-		var rgb = [];
-		for(var i=0; i<3; i++){
-			rgb[i] = Math.floor(Math.random()*256);
-		}
-		var rgbStr = "rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")";     //format the color as an rgb string
-		return rgbStr;
-		}
 	var $controlpanel = $("#controlpanel");
-	var $disco = $('#disco');
+	var $disco = $('#disco');                          // Where the magic happens
 
 	var numRows;
 	var numCols;
@@ -38,7 +29,7 @@ $(document).ready(function(){
 	});
 
 	//  set up four jQueryUI sliders to adjust parameters
-    $("#interval_control").slider({       // control the speed. readout is in beats per minute (BPM)
+	$("#interval_control").slider({       // control the speed. readout is in beats per minute (BPM)
 		min: 50,
 		max: 500,
 		value: bpm,
@@ -55,7 +46,7 @@ $(document).ready(function(){
 			change_color();
 		}
 	});
-    $("#numthread_control").slider({      // control the number of cells changed per iteration
+	$("#numthread_control").slider({      // control the number of cells changed per iteration
 		min: 1,
 		max: 50,
 		create: function(event, ui){
@@ -67,8 +58,8 @@ $(document).ready(function(){
 			numThreads = ui.value;
 		}
 	});
-    $("#cellwidth_control").slider({      // control the width of the cells
-		min: 5,
+	$("#cellwidth_control").slider({      // control the width of the cells
+		min: 20,
 		max: 200,
 		create: function(event, ui){
 			$("#cellwidth_control_value").text(cellWidth);
@@ -84,8 +75,8 @@ $(document).ready(function(){
 			change_color();
 		}
 	});
-    $("#cellheight_control").slider({     // control the height of the cells
-		min: 5,
+	$("#cellheight_control").slider({     // control the height of the cells
+		min: 20,
 		max: 100,
 		create: function(event, ui){
 			$("#cellheight_control_value").text(cellHeight);
@@ -100,24 +91,37 @@ $(document).ready(function(){
 			clearInterval(cellInterval);
 			change_color();
 		}
-	});	
-	
-	function draw_cells(){                                   // builds the grid of cells to fill the window and initializes them with ramdom colors
+	});
+
+		//  random color generator, returns a string in the form of 'rgb(xxx,xxx,xxx)'
+	function random_color(){
+		var rgb = [];
+		for(var i=0; i<3; i++){
+			rgb[i] = Math.floor(Math.random()*256);
+		}
+		var rgbStr = "rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")";     //format the color as an rgb string
+		return rgbStr;
+		}
+
+		// builds the grid of cells to fill the window and initializes them with ramdom colors
+	function draw_cells(){
 		var windowHeight = $(window).height();               // find available window size
 		var windowWidth = $(window).width();
+		var htmlstring = ""
 		numRows = Math.floor(windowHeight / cellHeight);     // find the number of cells that will fit in the area
 		numCols = Math.floor((windowWidth) / cellWidth);
-		$disco.html("");                                     // clear the <div>
+		$disco.html("");                                     // clear the dancefloor
 		$disco.width(numCols * cellWidth);                   // fix the width of the <div> so we can center it in CSS
 		console.log("Window dimensions:", windowHeight, windowWidth);     //debug
 		console.log("Grid size:", numRows, numCols, "Total cells:", numRows * numCols);     //debug
-			for(var i = 0; i < numRows; i++){                // generate blocks. Each block has an ID and starting color
-				for(var j = 0; j < numCols; j++){
-					$disco.append("<div class='cell' id='cellx" + j + "y" + i + "' style='background-color:"+random_color()+";'></div>");
-						// html: <div class='cell' id='cellx0y0' style='background-color:rgb(0, 0, 0);'></div>
-				}
+		for(var i = 0; i < numRows; i++){                // generate blocks. Each block has an ID and starting color
+			for(var j = 0; j < numCols; j++){
+				htmlstring += "<div class='cell' id='cellx" + j + "y" + i + "' style='background-color:"+random_color()+";'></div>"
 			}
-		//  set the size of the cells to fill the window
+					// html: <div class='cell' id='cellx0y0' style='background-color:rgb(0, 0, 0);'></div>
+		}
+		$disco.html(htmlstring)
+		  //  set the size of the cells to fill the window
 		var $cell = $('.cell');
 		$cell.height(cellHeight);
 		$cell.width(cellWidth);
@@ -132,11 +136,10 @@ $(document).ready(function(){
 			var color = random_color();                    // generate a color
 			cells.push([cellID, color]);
 		}
-//			console.log(cells);     //debug
+// console.log(cells);     //debug
 		for(j=0; j<cells.length; j++){
 			$("#"+cells[j][0]).css("background-color", "white");     //create a "flashing" effect
 		}
-
 		setTimeout(func, Math.floor(interval/2));     //timeout function changes the cells to a random color after half the interval length
 		function func(){
 			for(k=0; k<cells.length; k++){
@@ -156,3 +159,4 @@ $(document).ready(function(){
 	draw_cells();
 	change_color();
 });
+
